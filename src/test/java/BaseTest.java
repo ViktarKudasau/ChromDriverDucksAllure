@@ -3,11 +3,10 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import io.qameta.allure.Allure;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebDriverException;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.*;
 import pageOblects.MainPage;
 import pageOblects.RubberDucksPage;
@@ -15,6 +14,8 @@ import pageOblects.RubberDucksPage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.open;
@@ -29,12 +30,22 @@ public class BaseTest {
     Logger logger = Logger.getLogger(BaseTest.class);
 
     @BeforeClass
-    public void beforeClass() {
+    public void beforeClass() throws MalformedURLException {
+        //{"browserName":"chrome","
+        // goog:chromeOptions":{"args":["--remote-allow-origins=*"]},"platformName":"Windows 10"}
+
+        DesiredCapabilities caps = new DesiredCapabilities();
+        caps.setBrowserName("chrome");
+        caps.setPlatform(Platform.ANY);
+
+
         logger.info("Before test started");
-        WebDriverManager.chromedriver().setup();
-        webDriver = new ChromeDriver();
+  //      WebDriverManager.chromedriver().setup();
+   //     webDriver = new ChromeDriver();
+
+        webDriver = new RemoteWebDriver(new URL("http://192.168.1.131:4444/wd/hub"), caps);
+
         webDriver.manage().window().maximize();
-        webDriver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(300));
         WebDriverRunner.setWebDriver(webDriver);
         mainPage = new MainPage(webDriver);
         rubberDucksPage = new RubberDucksPage(webDriver);
@@ -65,4 +76,5 @@ public class BaseTest {
             throw new RuntimeException(e);
         }
     }
+
 }

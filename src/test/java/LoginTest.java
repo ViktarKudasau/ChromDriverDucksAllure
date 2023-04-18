@@ -14,7 +14,7 @@ import java.io.ByteArrayInputStream;
 
 public class LoginTest extends BaseTest {
 
-    String expectedSuccessMessage = "You are now logged in as Kudasau.";
+    String expectedSuccessMessage = "You are now logged in as Viktar Kudasau.";
     String expectedErrorMessage = "Wrong password or the account is disabled, or does not exist";
     Logger logger = Logger.getLogger(LoginTest.class);
 
@@ -33,8 +33,7 @@ public class LoginTest extends BaseTest {
     public void TestCorrectLogin() {
         logger.info("TestCorrectLogin started");
         mainPage.fillCorrectLoginAndSend();
-        Assert.assertNotEquals(mainPage.getSuccessMessage(), expectedSuccessMessage,
+        Assert.assertEquals(mainPage.getSuccessMessage(), expectedSuccessMessage,
                 "Actual success message is " + "'" + mainPage.getSuccessMessage() + "'");
-        addAttachmentScreenshot();
     }
 }
