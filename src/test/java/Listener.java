@@ -1,24 +1,18 @@
 import com.codeborne.selenide.WebDriverRunner;
-import com.epam.reportportal.service.ReportPortal;
 import io.qameta.allure.Allure;
-import io.qameta.allure.Attachment;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriverException;
-import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
-
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.util.Calendar;
 
 public class Listener implements ITestListener {
     Logger logger = Logger.getLogger(Listener.class);
-
 
     @Override
     public void onTestFailure(ITestResult result) {
@@ -28,9 +22,7 @@ public class Listener implements ITestListener {
         logger.info("Test failed");
     }
 
-
-
-    public void getScreen(){
+    public void getScreen() {
         String fileName;
         logger.info("start getting screenshot");
         File screenshot = ((TakesScreenshot)
@@ -45,12 +37,12 @@ public class Listener implements ITestListener {
         logger.info("screenshot was saved to " + fileName);
     }
 
-    public void addAttachmentScreenshot(){
+    public void addAttachmentScreenshot() {
 
         ByteArrayInputStream screenshot = new ByteArrayInputStream(((TakesScreenshot)
                 WebDriverRunner.getWebDriver()).getScreenshotAs(OutputType.BYTES));
         try {
-            Allure.addAttachment("Screenshot_" + System.currentTimeMillis() +".png",
+            Allure.addAttachment("Screenshot_" + System.currentTimeMillis() + ".png",
                     screenshot);
         } catch (WebDriverException e) {
             throw new RuntimeException(e);

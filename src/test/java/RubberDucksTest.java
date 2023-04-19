@@ -11,6 +11,7 @@ public class RubberDucksTest extends BaseTest {
     public void quantityDucksTest() {
         logger.info("quantityDucksTest started");
         rubberDucksPage.clickRubberDucks();
+        addAttachmentScreenshot();
         Assert.assertEquals(rubberDucksPage.getQuantityDucks(), expectedQuantityDucks,
                 "Actual quantity ducks = " + rubberDucksPage.getQuantityDucks());
     }
@@ -20,6 +21,7 @@ public class RubberDucksTest extends BaseTest {
         logger.info("sortByDateTest started");
         rubberDucksPage.clickRubberDucks();
         rubberDucksPage.clickDate();
+        addAttachmentScreenshot();
         Assert.assertEquals(rubberDucksPage.getPriceByDate(), expectedPriceByDate,
                 "Actual first's duck price sorted by Date = " + rubberDucksPage.getPriceByDate());
  /*       Listener list = new Listener();
@@ -28,12 +30,12 @@ public class RubberDucksTest extends BaseTest {
   */
     }
 
-
     @Test
     public void sortByNameTest() {
         logger.info("sortByNameTest started");
         rubberDucksPage.clickRubberDucks();
         rubberDucksPage.clickName();
+        addAttachmentScreenshot();
         Assert.assertEquals(rubberDucksPage.getPriceByName(), expectedPriceByName,
                 "Actual first's duck price sorted by Name = " + rubberDucksPage.getPriceByName());
     }
